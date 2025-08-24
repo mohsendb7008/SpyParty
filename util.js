@@ -20,3 +20,5 @@ function msToClock(ms){
     const s = String(total%60).padStart(2,'0');
     return `${m}:${s}`;
 }
+
+const $ = (id) => document.getElementById(id);
