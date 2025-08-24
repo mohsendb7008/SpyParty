@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spy Party</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Spy Party</h1>
+  </header>
+  <div class="container">
+    <section class="card" id="connCard">
+      <div class="row">
+        <div class="inline" style="justify-content: space-between;">
+          <span class="badge"><span id="connDot" class="status-dot dot-bad"></span> <span id="connText">Disconnected</span></span>
+        </div>
+        <div class="grid2">
+          <div class="stack">
+            <label>Server URL</label>
+            <input id="serverUrl" type="text" value="wss://webrtc-signaling.mdsinalpha.click"/>
+          </div>
+          <div class="stack">
+            <label>Display name</label>
+            <input id="nameInput" type="text" maxlength="18" placeholder="Alex" />
+          </div>
+        </div>
+        <div class="grid3">
+          <button id="connectBtn" class="primary">Connect</button>
+          <button id="disconnectBtn" class="ghost">Disconnect</button>
+          <button id="reconnectBtn" class="ghost">Reconnect</button>
+        </div>
+        <div class="divider"></div>
+        <div class="grid2">
+          <div class="stack">
+            <label>Create game</label>
+            <div class="inline" style="gap:10px;">
+              <input id="createCode" type="text" placeholder="Code (auto if empty)" />
+              <button id="createBtn">Create</button>
+            </div>
+          </div>
+          <div class="stack">
+            <label>Join game</label>
+            <div class="inline" style="gap:10px;">
+              <input id="joinCode" type="text" placeholder="Enter code" />
+              <button id="joinBtn">Join</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="card" id="lobbyCard">
+      <div class="row">
+        <div class="inline" style="justify-content: space-between;">
+          <div class="inline" style="gap:10px;">
+            <div><span class="muted">Game Code</span> <span id="codeValue" class="code">—</span></div>
+            <button id="copyCodeBtn" class="ghost">Copy</button>
+          </div>
+          <div class="badge">Phase: <span id="phaseText" style="margin-left:6px;font-weight:700;">lobby</span></div>
+        </div>
+        <div id="leaderPanel" class="stack hidden"></div>
+        <div class="row">
+          <div class="list" id="playersList"></div>
+        </div>
+        <div class="divider"></div>
+        <div id="rolePanel" class="row hidden"></div>
+        <div id="timerPanel" class="row hidden"></div>
+      </div>
+    </section>
+  </div>
+  <div class="footer">Made by AI. Polished by Mohsen.</div>
+  <script src="rtc-client.umd.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
