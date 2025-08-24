@@ -14,28 +14,16 @@ function handleLobbyMessage(msg) {
     switch (msg.type) {
         case 'create':
         {
-            if (
-                msg.code === lobbyState.gameCode &&
-                msg.id === lobbyState.playerId
-            )
-            {
-                lobbyState.players.push({ id: msg.id, name: msg.name });
-                lobbyState.leaderId = msg.id;
-            }
+            lobbyState.players.push({ id: msg.id, name: msg.name });
+            lobbyState.leaderId = msg.id;
+            lobbyState.settings = msg.settings;
             return true;
         }
         case 'join':
         {
-            if (msg.code === lobbyState.gameCode)
-            {
-                if (
-                    msg.id === lobbyState.playerId ||
-                    lobbyState.isLeader()
-                )
-                {
-                    lobbyState.players.push({ id: msg.id, name: msg.name });
-                }
-            }
+            lobbyState.players.push({ id: msg.id, name: msg.name });
+            if (msg.id === lobbyState.playerId)
+                flushBuffer();
             return true;
         }
     }
@@ -49,7 +37,7 @@ $('createBtn').onclick = () => {
     lobbyState.playerId = id;
     lobbyState.playerName = name;
     lobbyState.gameCode = code;
-    send({ type: 'create', code, id, name });
+    send({ type: 'create', code, id, name, settings: lobbyState.settings });
     render();
 };
 
