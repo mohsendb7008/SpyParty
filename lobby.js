@@ -51,3 +51,12 @@ $('joinBtn').onclick = () => {
     send({ type: 'join', code, id, name });
     render();
 };
+
+const copyCodeBtn = $('copyCodeBtn');
+copyCodeBtn.onclick = () => {
+    const c = lobbyState.gameCode;
+    if(!c) return;
+    copy(c);
+    copyCodeBtn.textContent = 'Copied!';
+    setTimeout(()=> copyCodeBtn.textContent='Copy', 1000);
+};
