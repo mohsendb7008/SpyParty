@@ -12,6 +12,21 @@ function generateUniqueString(length = 16) {
     return randomPart + timestampPart;
 }
 
+function randomSample(list, count = 1) {
+    if (count < 1)
+        return undefined;
+    if (count === 1)
+        return list.length > 0 ? [list[Math.floor(Math.random() * list.length)]] : [];
+    const shuffled = [...list];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    if (count > list.length)
+        return shuffled;
+    return shuffled.slice(0, count);
+}
+
 function copy(text){ navigator.clipboard?.writeText(text).then(()=>{}); }
 
 function msToClock(ms){
