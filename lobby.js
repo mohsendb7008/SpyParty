@@ -60,3 +60,18 @@ copyCodeBtn.onclick = () => {
     copyCodeBtn.textContent = 'Copied!';
     setTimeout(()=> copyCodeBtn.textContent='Copy', 1000);
 };
+
+$('startBtn').onclick = () => {
+    if (!lobbyState.isLeader()) return;
+    if (lobbyState.players.length < 3) {
+        alert('Need at least 3 players to start the game');
+        return;
+    }
+    if (lobbyState.players.length / 2 < lobbyState.settings.numSpies) {
+        alert('Cannot have more than half of the players to be spy');
+        return;
+    }
+    const word = randomSample(lobbyState.settings.words)[0];
+    const spies = randomSample(lobbyState.players, lobbyState.settings.numSpies);
+    send({ type: 'start', code: lobbyState.gameCode, word, spies });
+};
