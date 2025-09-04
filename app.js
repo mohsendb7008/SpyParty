@@ -10,6 +10,21 @@ function render(){
   const isLeader = lobbyState.isLeader();
   $('leaderPanel').classList.toggle('hidden', !isLeader);
 
+  $('rolePanel').classList.toggle('hidden', appState.phase !== 'game');
+  $('timerPanel').classList.toggle('hidden', appState.phase !== 'timer');
+
+  if (appState.phase === 'game') {
+    const isSpy = gameState.isSpy();
+    $('roleText').textContent = isSpy ? 'YOU ARE SPY' : gameState.word || '—';
+    $('roleInstruction').textContent = isSpy
+        ? 'Blend in and guess the secret word!'
+        : 'Give clues without saying the word!';
+
+    $('confirmBtn').disabled = gameState.confirmed.has(lobbyState.playerId);
+    $('confirmCount').textContent = gameState.confirmed.size;
+    $('totalPlayers').textContent = lobbyState.players.length;
+  }
+
   const list = $('playersList');
   list.innerHTML = '';
   lobbyState.players.forEach(p => {
@@ -25,10 +40,23 @@ function render(){
       name.appendChild(you);
     }
     const conf = document.createElement('div');
-    conf.innerHTML = `<span class="status-dot ${lobbyState.isLeader() ? 'dot-ok' : 'dot-warn'}"></span>`;
+
+    if (appState.phase === 'game') {
+      const isPlayerConfirmed = gameState.confirmed.has(p.id);
+      conf.innerHTML = `<span class="status-dot ${isPlayerConfirmed ? 'dot-ok' : 'dot-warn'}"></span>`;
+    } else {
+      conf.innerHTML = `<span class="status-dot ${lobbyState.isLeader() ? 'dot-ok' : 'dot-warn'}"></span>`;
+    }
+
     const role = document.createElement('div');
     role.className = 'muted';
-    role.textContent = p.id === lobbyState.leaderId ? 'leader' : '';
+
+    if (appState.phase === 'game') {
+      role.textContent = gameState.confirmed.has(p.id) ? 'ready' : 'not ready';
+    } else {
+      role.textContent = p.id === lobbyState.leaderId ? 'leader' : '';
+    }
+
     el.appendChild(name);
     el.appendChild(role);
     el.appendChild(conf);
