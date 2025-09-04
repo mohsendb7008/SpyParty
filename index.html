@@ -66,7 +66,18 @@
           <div class="list" id="playersList"></div>
         </div>
         <div class="divider"></div>
-        <div id="rolePanel" class="row hidden"></div>
+        <div id="rolePanel" class="row hidden">
+          <div class="word-card">
+            <div id="roleText" class="word">—</div>
+            <div class="muted" style="margin-top: 8px;" id="roleInstruction">—</div>
+          </div>
+          <div class="stack" style="margin-top: 12px;">
+            <button id="confirmBtn" class="primary">Ready</button>
+            <div class="muted" style="text-align: center;">
+              <span id="confirmCount">0</span> of <span id="totalPlayers">0</span> players ready
+            </div>
+          </div>
+        </div>
         <div id="timerPanel" class="row hidden"></div>
       </div>
     </section>

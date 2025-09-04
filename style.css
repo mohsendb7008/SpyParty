@@ -25,6 +25,7 @@ input[type="text"], input[type="number"], textarea { width: 100%; background: #0
 textarea { min-height: 120px; resize: vertical; }
 button { background: #232a57; color: var(--text); border: 1px solid #2f3a7f; padding: 10px 14px; border-radius: 12px; cursor: pointer; font-weight: 600; transition: 120ms transform ease, 120ms background ease, 120ms filter ease; }
 button:hover { transform: translateY(-1px); filter: brightness(1.05); }
+button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; filter: none; }
 button.primary { background: var(--accent); color: #0a0f2d; border-color: #b6c7ff; }
 button.ghost { background: transparent; border-color: #2a2f51; }
 button.warn { background: var(--warn); color: #111; border-color: #ffe08a; }
