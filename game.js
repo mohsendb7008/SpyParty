@@ -1,5 +1,20 @@
 const gameState = {
-    roundId: null,
-    role: { role: null, word: null },
-    timer: { running: false, startAt: 0, duration: 0, tickHandle: null }
+    word: null,
+    isSpy() {
+        return this.word == null;
+    }
+}
+
+function handleGameMessage(msg) {
+    switch (msg.type) {
+        case 'start':
+        {
+            appState.phase = 'game';
+            if (!msg.spies.some(spy => spy.id === lobbyState.playerId)) {
+                gameState.word = msg.word;
+            }
+            return true;
+        }
+    }
+    return false;
 }

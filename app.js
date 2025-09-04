@@ -1,5 +1,5 @@
 const appState = {
-  phase: 'lobby', // lobby | dealing | discussion | ended
+  phase: 'lobby', // lobby | game | timer
   buffer: []
 }
 
@@ -46,7 +46,7 @@ function handleServerMessage(msg, buffer = true){
     if (buffer) appState.buffer.push(msg);
     return;
   }
-  if (handleLobbyMessage(msg)) {
+  if (handleLobbyMessage(msg) || handleGameMessage(msg)) {
     render();
     return;
   }
