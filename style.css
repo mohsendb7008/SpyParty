@@ -51,4 +51,16 @@ button.danger { background: var(--danger); }
 .word-card { background: #061035; border: 1px solid #233071; padding: 16px; border-radius: 12px; text-align: center; }
 .word { font-size: 22px; font-weight: 900; letter-spacing: 0.5px; }
 .footer { text-align: center; color: var(--muted); font-size: 12px; padding: 12px 0 20px; }
+.timer-warning { animation: pulse-warning 1s ease-in-out infinite alternate; }
+.timer-warning .timer { color: var(--danger); }
+@keyframes pulse-warning {
+  from {
+    border-color: #233071;
+    background: #061035;
+  }
+  to {
+    border-color: var(--danger);
+    background: rgba(255, 107, 107, 0.1);
+  }
+}
 @media (max-width: 920px){ .container{ grid-template-columns: 1fr; } }

@@ -2,7 +2,7 @@ const lobbyState = {
     playerId: null,
     playerName: '',
     gameCode: null,
-    settings: { numSpies: 1, roundSeconds: 300, words: ['cafe', 'beach', 'library', 'train', 'museum'] },
+    settings: { numSpies: 1, roundSeconds: 60, words: ['cafe', 'beach', 'library', 'train', 'museum'] },
     players: [],
     leaderId: null,
     isLeader() {

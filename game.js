@@ -1,5 +1,6 @@
 const gameState = {
     word: null,
+    spies: [],
     confirmed: new Set(),
     isSpy() {
         return this.word == null;
@@ -18,6 +19,7 @@ function handleGameMessage(msg) {
             if (!msg.spies.some(spy => spy.id === lobbyState.playerId)) {
                 gameState.word = msg.word;
             }
+            gameState.spies = msg.spies;
             gameState.confirmed.clear();
             return true;
         }
@@ -25,7 +27,7 @@ function handleGameMessage(msg) {
         {
             gameState.confirmed.add(msg.id);
             if (gameState.allConfirmed()) {
-                appState.phase = 'timer';
+                startTimer();
             }
             return true;
         }
