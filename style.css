@@ -63,4 +63,10 @@ button.danger { background: var(--danger); }
     background: rgba(255, 107, 107, 0.1);
   }
 }
+.settings-panel { background: #0a1030; border: 1px solid #232a57; border-radius: 12px; padding: 12px; margin-bottom: 12px; }
+.settings-summary { cursor: pointer; font-weight: 600; padding: 4px 0; user-select: none; list-style: none; display: flex; align-items: center; justify-content: space-between; }
+.settings-summary::-webkit-details-marker { display: none; }
+.settings-summary::after { content: '▼'; font-size: 10px; transition: transform 150ms ease; opacity: 0.6; }
+details[open] .settings-summary::after { transform: rotate(-180deg); }
+.settings-content { padding-top: 12px; }
 @media (max-width: 920px){ .container{ grid-template-columns: 1fr; } }

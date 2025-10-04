@@ -10,6 +10,22 @@ const lobbyState = {
     }
 }
 
+function updateSettingsUI() {
+    $('numSpiesInput').value = lobbyState.settings.numSpies;
+    $('roundSecondsInput').value = lobbyState.settings.roundSeconds;
+    $('wordsInput').value = lobbyState.settings.words.join('\n');
+}
+
+function readSettingsFromUI() {
+    const wordsText = $('wordsInput').value.trim();
+    const words = wordsText ? wordsText.split('\n').map(w => w.trim()).filter(w => w.length > 0) : [];
+    lobbyState.settings = {
+        numSpies: Math.max(1, parseInt($('numSpiesInput').value) || 1),
+        roundSeconds: Math.max(30, Math.min(600, parseInt($('roundSecondsInput').value) || 60)),
+        words: words.length > 0 ? words : ['cafe', 'beach', 'library', 'train', 'museum']
+    };
+}
+
 function handleLobbyMessage(msg) {
     switch (msg.type) {
         case 'create':
@@ -63,6 +79,7 @@ copyCodeBtn.onclick = () => {
 
 $('startBtn').onclick = () => {
     if (!lobbyState.isLeader()) return;
+    readSettingsFromUI();
     if (lobbyState.players.length < 3) {
         alert('Need at least 3 players to start the game');
         return;
@@ -73,5 +90,5 @@ $('startBtn').onclick = () => {
     }
     const word = randomSample(lobbyState.settings.words)[0];
     const spies = randomSample(lobbyState.players, lobbyState.settings.numSpies);
-    send({ type: 'start', code: lobbyState.gameCode, word, spies });
+    send({ type: 'start', code: lobbyState.gameCode, settings: lobbyState.settings, word, spies });
 };

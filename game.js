@@ -15,6 +15,7 @@ function handleGameMessage(msg) {
         case 'start':
         {
             appState.phase = 'game';
+            lobbyState.settings = msg.settings;
             gameState.word = null;
             if (!msg.spies.some(spy => spy.id === lobbyState.playerId)) {
                 gameState.word = msg.word;

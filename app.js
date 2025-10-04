@@ -10,6 +10,10 @@ function render(){
   const isLeader = lobbyState.isLeader();
   $('leaderPanel').classList.toggle('hidden', !isLeader);
 
+  if (isLeader && appState.phase === 'lobby') {
+    updateSettingsUI();
+  }
+
   $('rolePanel').classList.toggle('hidden', appState.phase !== 'game');
   $('timerPanel').classList.toggle('hidden', appState.phase !== 'timer');
 

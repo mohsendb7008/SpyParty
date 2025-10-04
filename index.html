@@ -60,6 +60,23 @@
           <div class="badge">Phase: <span id="phaseText" style="margin-left:6px;font-weight:700;">lobby</span></div>
         </div>
         <div id="leaderPanel" class="stack hidden">
+          <details class="settings-panel">
+            <summary class="settings-summary">Game Settings</summary>
+            <div class="settings-content">
+              <div class="stack">
+                <label>Number of Spies</label>
+                <input id="numSpiesInput" type="number" min="1" value="1" />
+              </div>
+              <div class="stack">
+                <label>Round Duration (seconds)</label>
+                <input id="roundSecondsInput" type="number" min="30" max="600" value="60" />
+              </div>
+              <div class="stack">
+                <label>Secret Words (one per line)</label>
+                <textarea id="wordsInput" placeholder="cafe&#10;beach&#10;library"></textarea>
+              </div>
+            </div>
+          </details>
           <button id="startBtn" class="primary">Start</button>
         </div>
         <div class="row">
