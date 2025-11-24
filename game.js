@@ -13,25 +13,25 @@ const gameState = {
 function handleGameMessage(msg) {
     switch (msg.type) {
         case 'start':
-        {
-            appState.phase = 'game';
-            lobbyState.settings = msg.settings;
-            gameState.word = null;
-            if (!msg.spies.some(spy => spy.id === lobbyState.playerId)) {
-                gameState.word = msg.word;
+            {
+                appState.phase = 'game';
+                lobbyState.settings = msg.settings;
+                gameState.word = null;
+                if (!msg.spies.some(spy => spy.id === lobbyState.playerId)) {
+                    gameState.word = msg.word;
+                }
+                gameState.spies = msg.spies;
+                gameState.confirmed.clear();
+                return true;
             }
-            gameState.spies = msg.spies;
-            gameState.confirmed.clear();
-            return true;
-        }
         case 'confirm':
-        {
-            gameState.confirmed.add(msg.id);
-            if (gameState.allConfirmed()) {
-                startTimer();
+            {
+                gameState.confirmed.add(msg.id);
+                if (gameState.allConfirmed()) {
+                    startTimer();
+                }
+                return true;
             }
-            return true;
-        }
     }
     return false;
 }
