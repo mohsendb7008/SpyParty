@@ -3,7 +3,7 @@ const appState = {
   buffer: []
 }
 
-function render(){
+function render() {
   $('codeValue').textContent = lobbyState.gameCode || '—';
   $('phaseText').textContent = appState.phase;
 
@@ -21,8 +21,8 @@ function render(){
     const isSpy = gameState.isSpy();
     $('roleText').textContent = isSpy ? 'YOU ARE SPY' : gameState.word || '—';
     $('roleInstruction').textContent = isSpy
-        ? 'Blend in and guess the secret word!'
-        : 'Give clues without saying the word!';
+      ? 'Blend in and guess the secret word!'
+      : 'Give clues without saying the word!';
 
     $('confirmBtn').disabled = gameState.confirmed.has(lobbyState.playerId);
     $('confirmCount').textContent = gameState.confirmed.size;
@@ -64,6 +64,19 @@ function render(){
     el.appendChild(name);
     el.appendChild(role);
     el.appendChild(conf);
+
+    if (lobbyState.isLeader() && p.id !== lobbyState.playerId) {
+      const kickBtn = document.createElement('button');
+      kickBtn.className = 'ghost btn-kick';
+      kickBtn.textContent = 'Kick';
+      kickBtn.onclick = () => {
+        if (confirm(`Kick ${p.name}?`)) {
+          send({ type: 'kick', id: p.id });
+        }
+      };
+      el.appendChild(kickBtn);
+    }
+
     list.appendChild(el);
   });
 }
@@ -73,7 +86,7 @@ function flushBuffer() {
   appState.buffer = [];
 }
 
-function handleServerMessage(msg, buffer = true){
+function handleServerMessage(msg, buffer = true) {
   if (msg.code && msg.code !== lobbyState.gameCode) {
     if (buffer) appState.buffer.push(msg);
     return;
@@ -82,7 +95,7 @@ function handleServerMessage(msg, buffer = true){
     render();
     return;
   }
-  switch(msg.type){
+  switch (msg.type) {
     case 'error': {
       alert(msg.message || 'Unknown error');
       break;

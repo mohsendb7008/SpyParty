@@ -29,26 +29,33 @@ function readSettingsFromUI() {
 function handleLobbyMessage(msg) {
     switch (msg.type) {
         case 'create':
-        {
-            lobbyState.players.push({ id: msg.id, name: msg.name });
-            lobbyState.leaderId = msg.id;
-            lobbyState.settings = msg.settings;
-            return true;
-        }
+            {
+                lobbyState.players.push({ id: msg.id, name: msg.name });
+                lobbyState.leaderId = msg.id;
+                lobbyState.settings = msg.settings;
+                return true;
+            }
         case 'join':
-        {
-            lobbyState.players.push({ id: msg.id, name: msg.name });
-            if (msg.id === lobbyState.playerId)
-                flushBuffer();
-            return true;
-        }
+            {
+                lobbyState.players.push({ id: msg.id, name: msg.name });
+                if (msg.id === lobbyState.playerId)
+                    flushBuffer();
+                return true;
+            }
+        case 'kick':
+            {
+                if (msg.id === lobbyState.playerId)
+                    location.reload();
+                lobbyState.players = lobbyState.players.filter(p => p.id !== msg.id);
+                return true;
+            }
     }
     return false;
 }
 
 $('createBtn').onclick = () => {
     const id = uid();
-    const name = $('nameInput').value.trim(); if(!name) return alert('Enter your display name');
+    const name = $('nameInput').value.trim(); if (!name) return alert('Enter your display name');
     const code = ($('createCode').value.trim() || defaultCode()).toUpperCase();
     lobbyState.playerId = id;
     lobbyState.playerName = name;
@@ -59,8 +66,8 @@ $('createBtn').onclick = () => {
 
 $('joinBtn').onclick = () => {
     const id = uid();
-    const name = $('nameInput').value.trim(); if(!name) return alert('Enter your display name');
-    const code = $('joinCode').value.trim().toUpperCase(); if(!code) return alert('Enter game code');
+    const name = $('nameInput').value.trim(); if (!name) return alert('Enter your display name');
+    const code = $('joinCode').value.trim().toUpperCase(); if (!code) return alert('Enter game code');
     lobbyState.playerId = id;
     lobbyState.playerName = name;
     lobbyState.gameCode = code;
@@ -71,10 +78,10 @@ $('joinBtn').onclick = () => {
 const copyCodeBtn = $('copyCodeBtn');
 copyCodeBtn.onclick = () => {
     const c = lobbyState.gameCode;
-    if(!c) return;
+    if (!c) return;
     copy(c);
     copyCodeBtn.textContent = 'Copied!';
-    setTimeout(()=> copyCodeBtn.textContent='Copy', 1000);
+    setTimeout(() => copyCodeBtn.textContent = 'Copy', 1000);
 };
 
 $('startBtn').onclick = () => {
