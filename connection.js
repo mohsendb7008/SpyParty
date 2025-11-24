@@ -5,21 +5,21 @@ const connectionState = {
     reconnecting: false,
 };
 
-function setConn(status, text){
+function setConn(status, text) {
     const dot = $('connDot');
-    dot.classList.remove('dot-ok','dot-warn','dot-bad');
+    dot.classList.remove('dot-ok', 'dot-warn', 'dot-bad');
     if (status === 'ok') dot.classList.add('dot-ok');
     else if (status === 'warn') dot.classList.add('dot-warn');
     else dot.classList.add('dot-bad');
     $('connText').textContent = text;
 }
 
-function connect(url, messageHandler){
-    if (connectionState.connection) try { connectionState.connection?.closeDataChannelAndPeerConnection(); } catch {}
+function connect(url, messageHandler) {
+    if (connectionState.connection) try { connectionState.connection?.closeDataChannelAndPeerConnection(); } catch { }
     window.signaling_websocket_url = url;
     connectionState.serverUrl = url;
     connectionState.ch = generateUniqueString();
-    setConn('warn','Connecting…');
+    setConn('warn', 'Connecting…');
     let onError = (error) => {
         console.error(error);
         setConn('bad', 'Disconnected');
@@ -40,7 +40,7 @@ function connect(url, messageHandler){
         }).catch(onError);
 }
 
-function send(data){
+function send(data) {
     let msg = JSON.stringify(data);
     connectionState.connection.sendData(msg);
 }
@@ -51,6 +51,6 @@ $('connectBtn').onclick = () => {
     connect(url, handleServerMessage);
 };
 
-$('disconnectBtn').onclick = () => { try { connectionState.connection?.closeDataChannelAndPeerConnection(); } catch{} };
+$('disconnectBtn').onclick = () => { try { connectionState.connection?.closeDataChannelAndPeerConnection(); } catch { } };
 
 $('reconnectBtn').onclick = () => { if (!connectionState.serverUrl) return; connect(connectionState.serverUrl); };

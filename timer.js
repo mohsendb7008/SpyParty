@@ -4,7 +4,7 @@ const timerState = {
     intervalId: null
 };
 
-function startTimer(){
+function startTimer() {
     stopTimer();
     appState.phase = 'timer';
     timerState.startTime = Date.now();

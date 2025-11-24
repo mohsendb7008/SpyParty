@@ -27,12 +27,12 @@ function randomSample(list, count = 1) {
     return shuffled.slice(0, count);
 }
 
-function copy(text){ navigator.clipboard?.writeText(text).then(()=>{}); }
+function copy(text) { navigator.clipboard?.writeText(text).then(() => { }); }
 
-function msToClock(ms){
-    const total = Math.max(0, Math.floor(ms/1000));
-    const m = String(Math.floor(total/60)).padStart(2,'0');
-    const s = String(total%60).padStart(2,'0');
+function msToClock(ms) {
+    const total = Math.max(0, Math.floor(ms / 1000));
+    const m = String(Math.floor(total / 60)).padStart(2, '0');
+    const s = String(total % 60).padStart(2, '0');
     return `${m}:${s}`;
 }
 
