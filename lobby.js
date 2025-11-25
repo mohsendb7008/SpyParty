@@ -56,7 +56,7 @@ function handleLobbyMessage(msg) {
 $('createBtn').onclick = () => {
     const id = uid();
     const name = $('nameInput').value.trim(); if (!name) return alert('Enter your display name');
-    const code = ($('createCode').value.trim() || defaultCode()).toUpperCase();
+    const code = ($('gameCodeInput').value.trim() || defaultCode()).toUpperCase();
     lobbyState.playerId = id;
     lobbyState.playerName = name;
     lobbyState.gameCode = code;
@@ -67,7 +67,7 @@ $('createBtn').onclick = () => {
 $('joinBtn').onclick = () => {
     const id = uid();
     const name = $('nameInput').value.trim(); if (!name) return alert('Enter your display name');
-    const code = $('joinCode').value.trim().toUpperCase(); if (!code) return alert('Enter game code');
+    const code = $('gameCodeInput').value.trim().toUpperCase(); if (!code) return alert('Enter game code');
     lobbyState.playerId = id;
     lobbyState.playerName = name;
     lobbyState.gameCode = code;
