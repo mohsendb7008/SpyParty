@@ -50,7 +50,3 @@ $('connectBtn').onclick = () => {
     if (!url) return alert('Enter Server URL');
     connect(url, handleServerMessage);
 };
-
-$('disconnectBtn').onclick = () => { try { connectionState.connection?.closeDataChannelAndPeerConnection(); } catch { } };
-
-$('reconnectBtn').onclick = () => { if (!connectionState.serverUrl) return; connect(connectionState.serverUrl); };
