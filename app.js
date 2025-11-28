@@ -17,6 +17,10 @@ function render() {
   $('rolePanel').classList.toggle('hidden', appState.phase !== 'game');
   $('timerPanel').classList.toggle('hidden', appState.phase !== 'timer');
 
+  if (appState.phase === 'timer') {
+    $('finishBtn').classList.toggle('hidden', !isLeader);
+  }
+
   if (appState.phase === 'game') {
     const isSpy = gameState.isSpy();
     $('roleText').textContent = isSpy ? 'YOU ARE SPY' : gameState.word || '—';

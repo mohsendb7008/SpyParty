@@ -32,6 +32,11 @@ function handleGameMessage(msg) {
                 }
                 return true;
             }
+        case 'finish':
+            {
+                finishGame();
+                return true;
+            }
     }
     return false;
 }

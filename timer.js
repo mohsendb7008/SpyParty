@@ -14,8 +14,7 @@ function startTimer() {
         updateTimerDisplay();
         const elapsed = Date.now() - timerState.startTime;
         if (elapsed >= timerState.duration) {
-            stopTimer();
-            $('timerDisplay').textContent = "SPY = " + gameState.spies.map(player => player.name).join(', ');
+            finishGame();
         }
     }, 100);
 }
@@ -25,6 +24,12 @@ function stopTimer() {
         clearInterval(timerState.intervalId);
         timerState.intervalId = null;
     }
+}
+
+function finishGame() {
+    stopTimer();
+    $('timerDisplay').textContent = "SPY = " + gameState.spies.map(player => player.name).join(', ');
+    $('finishBtn').classList.add('hidden');
 }
 
 function updateTimerDisplay() {
@@ -38,3 +43,7 @@ function updateTimerDisplay() {
         timerContainer.classList.remove('timer-warning');
     }
 }
+
+$('finishBtn').onclick = () => {
+    send({ type: 'finish', code: lobbyState.gameCode });
+};
