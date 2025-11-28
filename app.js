@@ -31,6 +31,8 @@ function render() {
     $('confirmBtn').disabled = gameState.confirmed.has(lobbyState.playerId);
     $('confirmCount').textContent = gameState.confirmed.size;
     $('totalPlayers').textContent = lobbyState.players.length;
+
+    $('forceStartBtn').classList.toggle('hidden', !isLeader);
   }
 
   const list = $('playersList');

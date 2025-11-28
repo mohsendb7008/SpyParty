@@ -37,6 +37,11 @@ function handleGameMessage(msg) {
                 finishGame();
                 return true;
             }
+        case 'force_start':
+            {
+                startTimer();
+                return true;
+            }
     }
     return false;
 }
@@ -45,4 +50,8 @@ $('confirmBtn').onclick = () => {
     if (gameState.confirmed.has(lobbyState.playerId)) return;
     send({ type: 'confirm', code: lobbyState.gameCode, id: lobbyState.playerId });
     render();
+};
+
+$('forceStartBtn').onclick = () => {
+    send({ type: 'force_start', code: lobbyState.gameCode });
 };
