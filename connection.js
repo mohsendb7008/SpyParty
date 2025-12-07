@@ -37,6 +37,7 @@ function connect(url, messageHandler) {
         .then((rtc) => {
             connectionState.connection = rtc;
             setConn('ok', 'Connected');
+            appState.buffer = [];
             resetApp();
             render();
         }).catch(onError);
