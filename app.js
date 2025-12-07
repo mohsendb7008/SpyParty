@@ -77,7 +77,7 @@ function render() {
       kickBtn.textContent = 'Kick';
       kickBtn.onclick = () => {
         if (confirm(`Kick ${p.name}?`)) {
-          send({ type: 'kick', id: p.id });
+          send({ type: 'kick', id: p.id, code: lobbyState.gameCode });
         }
       };
       el.appendChild(kickBtn);
