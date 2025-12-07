@@ -10,6 +10,15 @@ const lobbyState = {
     }
 }
 
+function resetLobby() {
+    lobbyState.playerId = null;
+    lobbyState.playerName = '';
+    lobbyState.gameCode = null;
+    lobbyState.settings = { numSpies: 1, roundSeconds: 60, words: ['cafe', 'beach', 'library', 'train', 'museum'] };
+    lobbyState.players = [];
+    lobbyState.leaderId = null;
+}
+
 function updateSettingsUI() {
     $('numSpiesInput').value = lobbyState.settings.numSpies;
     $('roundSecondsInput').value = lobbyState.settings.roundSeconds;
@@ -57,6 +66,7 @@ $('createBtn').onclick = () => {
     const id = uid();
     const name = $('nameInput').value.trim(); if (!name) return alert('Enter your display name');
     const code = ($('gameCodeInput').value.trim() || defaultCode()).toUpperCase();
+    resetApp();
     lobbyState.playerId = id;
     lobbyState.playerName = name;
     lobbyState.gameCode = code;
@@ -68,6 +78,7 @@ $('joinBtn').onclick = () => {
     const id = uid();
     const name = $('nameInput').value.trim(); if (!name) return alert('Enter your display name');
     const code = $('gameCodeInput').value.trim().toUpperCase(); if (!code) return alert('Enter game code');
+    resetApp();
     lobbyState.playerId = id;
     lobbyState.playerName = name;
     lobbyState.gameCode = code;

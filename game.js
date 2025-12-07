@@ -10,6 +10,12 @@ const gameState = {
     }
 }
 
+function resetGame() {
+    gameState.word = null;
+    gameState.spies = [];
+    gameState.confirmed.clear();
+}
+
 function handleGameMessage(msg) {
     switch (msg.type) {
         case 'start':

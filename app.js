@@ -3,6 +3,12 @@ const appState = {
   buffer: []
 }
 
+function resetApp() {
+  resetLobby();
+  resetGame();
+  appState.phase = 'lobby';
+}
+
 function render() {
   $('codeValue').textContent = lobbyState.gameCode || '—';
   $('phaseText').textContent = appState.phase;
