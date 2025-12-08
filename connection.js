@@ -20,6 +20,7 @@ function connect(url, messageHandler) {
     connectionState.serverUrl = url;
     connectionState.ch = generateUniqueString();
     setConn('warn', 'Connecting…');
+    appState.buffer = [];
     let onError = (error) => {
         console.error(error);
         setConn('bad', 'Disconnected');
@@ -37,7 +38,6 @@ function connect(url, messageHandler) {
         .then((rtc) => {
             connectionState.connection = rtc;
             setConn('ok', 'Connected');
-            appState.buffer = [];
             resetApp();
             render();
         }).catch(onError);
