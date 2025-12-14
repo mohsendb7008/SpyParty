@@ -1,8 +1,10 @@
+let defaultGameSettings = { numSpies: 1, roundSeconds: 60, words: ['cafe', 'beach', 'library', 'train', 'museum'] };
+
 const lobbyState = {
     playerId: null,
     playerName: '',
     gameCode: null,
-    settings: { numSpies: 1, roundSeconds: 60, words: ['cafe', 'beach', 'library', 'train', 'museum'] },
+    settings: { ...defaultGameSettings },
     players: [],
     leaderId: null,
     isLeader() {
@@ -14,7 +16,7 @@ function resetLobby() {
     lobbyState.playerId = null;
     lobbyState.playerName = '';
     lobbyState.gameCode = null;
-    lobbyState.settings = { numSpies: 1, roundSeconds: 60, words: ['cafe', 'beach', 'library', 'train', 'museum'] };
+    lobbyState.settings = { ...defaultGameSettings };
     lobbyState.players = [];
     lobbyState.leaderId = null;
 }
@@ -110,3 +112,21 @@ $('startBtn').onclick = () => {
     const spies = randomSample(lobbyState.players, lobbyState.settings.numSpies);
     send({ type: 'start', code: lobbyState.gameCode, settings: lobbyState.settings, word, spies });
 };
+
+async function loadSettings() {
+    try {
+        const response = await fetch('game_settings.json');
+        if (response.ok) {
+            const data = await response.json();
+            if (data.roundSeconds) defaultGameSettings.roundSeconds = data.roundSeconds;
+            if (data.words) defaultGameSettings.words = data.words;
+            lobbyState.settings.roundSeconds = defaultGameSettings.roundSeconds;
+            lobbyState.settings.words = defaultGameSettings.words;
+            render();
+        }
+    } catch (e) {
+        console.error("Failed to load game settings", e);
+    }
+}
+
+loadSettings();
