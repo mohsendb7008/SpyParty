@@ -93,8 +93,8 @@ copyCodeBtn.onclick = () => {
     const c = lobbyState.gameCode;
     if (!c) return;
     copy(c);
-    copyCodeBtn.textContent = 'Copied!';
-    setTimeout(() => copyCodeBtn.textContent = 'Copy', 1000);
+    copyCodeBtn.textContent = 'COPIED!';
+    setTimeout(() => copyCodeBtn.textContent = 'COPY CODE', 1000);
 };
 
 $('startBtn').onclick = () => {

@@ -4,105 +4,132 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Spy Party</title>
+  <title>Spy Party 2077</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-  <header>
-    <h1>Spy Party</h1>
-  </header>
-  <div class="container">
-    <section class="card" id="connCard">
-      <div class="row">
-        <div class="inline" style="justify-content: space-between;">
-          <span class="badge"><span id="connDot" class="status-dot dot-bad"></span> <span
-              id="connText">Disconnected</span></span>
-        </div>
-        <div class="grid2">
-          <div class="stack">
-            <label>Server URL</label>
-            <input id="serverUrl" type="text" value="wss://webrtc-signaling.mdsinalpha.click" />
-          </div>
-          <div class="stack">
-            <label>Display name</label>
-            <input id="nameInput" type="text" maxlength="18" placeholder="Alex" />
+  <div class="bg-grid"></div>
+  <div class="scanline"></div>
+
+  <main class="main-container">
+    <header class="cyber-header">
+      <h1 class="glitch" data-text="SPY PARTY">SPY PARTY</h1>
+      <div class="subtitle">NEURAL LINK ESTABLISHED</div>
+    </header>
+
+    <div class="content-wrapper">
+      <section class="cyber-card" id="connCard">
+        <div class="card-header">
+          <h2><span class="icon">🔌</span> NETWORK STATUS</h2>
+          <div class="status-badge">
+            <span id="connDot" class="status-dot dot-bad"></span>
+            <span id="connText">OFFLINE</span>
           </div>
         </div>
-        <div class="stack">
-          <button id="connectBtn" class="primary">Connect</button>
-        </div>
-        <div class="divider"></div>
-        <div class="stack">
-          <label>Game Code</label>
-          <div class="inline" style="gap:10px;">
-            <input id="gameCodeInput" type="text" placeholder="Code (auto if creating)" />
-            <button id="joinBtn">Join</button>
-            <button id="createBtn">Create</button>
+
+        <div class="card-body">
+          <div class="input-group">
+            <label>SERVER UPLINK</label>
+            <input id="serverUrl" type="text" value="wss://webrtc-signaling.mdsinalpha.click" class="cyber-input" />
           </div>
-        </div>
-      </div>
-    </section>
-    <section class="card" id="lobbyCard">
-      <div class="row">
-        <div class="inline" style="justify-content: space-between;">
-          <div class="inline" style="gap:10px;">
-            <div><span class="muted">Game Code</span> <span id="codeValue" class="code">—</span></div>
-            <button id="copyCodeBtn" class="ghost">Copy</button>
+
+          <div class="input-group">
+            <label>CODENAME</label>
+            <input id="nameInput" type="text" maxlength="18" placeholder="Enter Name..." class="cyber-input" />
           </div>
-          <div class="badge">Phase: <span id="phaseText" style="margin-left:6px;font-weight:700;">lobby</span></div>
-        </div>
-        <div id="leaderPanel" class="stack hidden">
-          <details class="settings-panel">
-            <summary class="settings-summary">Game Settings</summary>
-            <div class="settings-content">
-              <div class="stack">
-                <label>Number of Spies</label>
-                <input id="numSpiesInput" type="number" min="1" value="1" />
-              </div>
-              <div class="stack">
-                <label>Round Duration (seconds)</label>
-                <input id="roundSecondsInput" type="number" min="30" max="600" value="60" />
-              </div>
-              <div class="stack">
-                <label>Secret Words (one per line)</label>
-                <textarea id="wordsInput" placeholder="cafe&#10;beach&#10;library"></textarea>
+
+          <button id="connectBtn" class="cyber-btn primary full-width">INITIALIZE CONNECTION</button>
+
+          <div class="divider"><span>OR</span></div>
+
+          <div class="input-group">
+            <label>ACCESS CODE</label>
+            <div class="row-inputs">
+              <input id="gameCodeInput" type="text" placeholder="AUTO-GEN IF EMPTY" class="cyber-input" />
+              <div class="btn-group">
+                <button id="joinBtn" class="cyber-btn">JOIN</button>
+                <button id="createBtn" class="cyber-btn">CREATE</button>
               </div>
             </div>
-          </details>
-          <button id="startBtn" class="primary">Start</button>
-        </div>
-        <div class="row">
-          <div class="list" id="playersList"></div>
-        </div>
-        <div class="divider"></div>
-        <div id="rolePanel" class="row hidden">
-          <div class="word-card">
-            <div id="roleText" class="word">—</div>
-            <div class="muted" style="margin-top: 8px;" id="roleInstruction">—</div>
           </div>
-          <div class="stack" style="margin-top: 12px;">
-            <button id="confirmBtn" class="primary">Ready</button>
-            <div class="muted" style="text-align: center;">
-              <span id="confirmCount">0</span> of <span id="totalPlayers">0</span> players ready
+        </div>
+      </section>
+
+      <section class="cyber-card hidden" id="lobbyCard">
+        <div class="card-header">
+          <h2><span class="icon">👥</span> LOBBY <span id="codeValue" class="code-display">---</span></h2>
+          <div class="header-actions">
+            <button id="copyCodeBtn" class="cyber-btn small">COPY CODE</button>
+            <div class="phase-badge">PHASE: <span id="phaseText">LOBBY</span></div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div id="leaderPanel" class="settings-panel hidden">
+            <details class="cyber-details">
+              <summary>MISSION PARAMETERS</summary>
+              <div class="details-content">
+                <div class="input-group">
+                  <label>NUMBER OF SPIES</label>
+                  <input id="numSpiesInput" type="number" min="1" value="1" class="cyber-input" />
+                </div>
+                <div class="input-group">
+                  <label>ROUND DURATION (SEC)</label>
+                  <input id="roundSecondsInput" type="number" min="30" max="600" value="60" class="cyber-input" />
+                </div>
+                <div class="input-group">
+                  <label>SECRET WORDS (DB)</label>
+                  <textarea id="wordsInput" class="cyber-input" placeholder="cafe&#10;beach&#10;library"></textarea>
+                </div>
+              </div>
+            </details>
+            <button id="startBtn" class="cyber-btn primary full-width mt-4">EXECUTE MISSION</button>
+          </div>
+
+          <div class="list-header">OPERATIVES</div>
+          <div class="player-list" id="playersList"></div>
+
+          <div class="divider"></div>
+
+          <div id="rolePanel" class="role-panel hidden">
+            <div class="role-card">
+              <div class="role-label">YOUR ASSIGNMENT</div>
+              <div id="roleText" class="role-reveal glitch-text">---</div>
+              <div id="roleInstruction" class="role-sub">---</div>
             </div>
-            <button id="forceStartBtn" class="ghost hidden" style="margin-top: 8px; font-size: 14px;">Force
-              Start</button>
+
+            <div class="action-area">
+              <button id="confirmBtn" class="cyber-btn primary large">CONFIRM READY</button>
+              <div class="ready-status">
+                <span id="confirmCount">0</span> / <span id="totalPlayers">0</span> OPERATIVES READY
+              </div>
+              <button id="forceStartBtn" class="cyber-btn danger hidden">FORCE START</button>
+            </div>
+          </div>
+
+          <div id="timerPanel" class="timer-panel hidden">
+            <div id="timerContainer" class="timer-display">
+              <div class="timer-label">TIME REMAINING</div>
+              <div id="timerDisplay" class="timer-digits">00:00</div>
+              <div class="timer-sub">IDENTIFY THE SPY</div>
+              <button id="finishBtn" class="cyber-btn warning hidden">ABORT MISSION</button>
+            </div>
           </div>
         </div>
-        <div id="timerPanel" class="row hidden">
-          <div id="timerContainer" class="word-card" style="background: #0a1030; border-color: #2a3057;">
-            <div class="muted" style="font-size: 14px; margin-bottom: 8px;">Discussion Time</div>
-            <div id="timerDisplay" class="timer">00:00</div>
-            <div class="muted" style="font-size: 12px; margin-top: 8px;">Discuss and find the spy!</div>
-            <button id="finishBtn" class="ghost hidden"
-              style="margin-top: 12px; font-size: 14px; padding: 4px 12px;">Finish</button>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-  <div class="footer">Made by AI. Polished by Mohsen.</div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="cyber-footer">
+    <div class="footer-text">SYSTEM VERSION 2.0 // DESIGN BY MOHSEN</div>
+  </footer>
+
   <script src="rtc-client.umd.js"></script>
   <script src="util.js"></script>
   <script src="connection.js"></script>

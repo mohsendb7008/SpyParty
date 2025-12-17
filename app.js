@@ -13,6 +13,10 @@ function render() {
   $('codeValue').textContent = lobbyState.gameCode || '—';
   $('phaseText').textContent = appState.phase;
 
+  const hasJoined = !!lobbyState.playerId;
+  $('connCard').classList.toggle('hidden', hasJoined);
+  $('lobbyCard').classList.toggle('hidden', !hasJoined);
+
   const isLeader = lobbyState.isLeader();
   $('leaderPanel').classList.toggle('hidden', !isLeader);
 
@@ -31,8 +35,8 @@ function render() {
     const isSpy = gameState.isSpy();
     $('roleText').textContent = isSpy ? 'YOU ARE SPY' : gameState.word || '—';
     $('roleInstruction').textContent = isSpy
-      ? 'Blend in and guess the secret word!'
-      : 'Give clues without saying the word!';
+      ? 'BLEND IN AND GUESS THE SECRET WORD!'
+      : 'GIVE CLUES WITHOUT SAYING THE WORD!';
 
     $('confirmBtn').disabled = gameState.confirmed.has(lobbyState.playerId);
     $('confirmCount').textContent = gameState.confirmed.size;
@@ -65,12 +69,12 @@ function render() {
     }
 
     const role = document.createElement('div');
-    role.className = 'muted';
+    role.className = 'role-sub';
 
     if (appState.phase === 'game') {
-      role.textContent = gameState.confirmed.has(p.id) ? 'ready' : 'not ready';
+      role.textContent = gameState.confirmed.has(p.id) ? 'READY' : 'NOT READY';
     } else {
-      role.textContent = p.id === lobbyState.leaderId ? 'leader' : '';
+      role.textContent = p.id === lobbyState.leaderId ? 'LEADER' : '';
     }
 
     el.appendChild(name);
@@ -79,8 +83,8 @@ function render() {
 
     if (lobbyState.isLeader() && p.id !== lobbyState.playerId) {
       const kickBtn = document.createElement('button');
-      kickBtn.className = 'ghost btn-kick';
-      kickBtn.textContent = 'Kick';
+      kickBtn.className = 'cyber-btn small danger btn-kick';
+      kickBtn.textContent = 'KICK';
       kickBtn.onclick = () => {
         if (confirm(`Kick ${p.name}?`)) {
           send({ type: 'kick', id: p.id, code: lobbyState.gameCode });
