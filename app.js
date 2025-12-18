@@ -118,3 +118,7 @@ function handleServerMessage(msg, buffer = true) {
     }
   }
 }
+
+window.addEventListener('load', () => {
+  connect('wss://webrtc-signaling.mdsinalpha.click', handleServerMessage);
+});

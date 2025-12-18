@@ -34,19 +34,23 @@
         </div>
 
         <div class="card-body">
-          <div class="input-group">
-            <label>SERVER UPLINK</label>
-            <input id="serverUrl" type="text" value="wss://webrtc-signaling.mdsinalpha.click" class="cyber-input" />
-          </div>
+          <details class="cyber-details">
+            <summary>NETWORK SETTINGS</summary>
+            <div class="details-content">
+              <div class="input-group">
+                <label>SERVER UPLINK</label>
+                <input id="serverUrl" type="text" value="wss://webrtc-signaling.mdsinalpha.click" class="cyber-input" />
+              </div>
+              <button id="connectBtn" class="cyber-btn primary full-width">RECONNECT</button>
+            </div>
+          </details>
+
+          <div class="divider"><span>MISSION SETUP</span></div>
 
           <div class="input-group">
             <label>CODENAME</label>
-            <input id="nameInput" type="text" maxlength="18" placeholder="Enter Name..." class="cyber-input" />
+            <input id="nameInput" type="text" maxlength="18" placeholder="YOUR NAME" class="cyber-input" />
           </div>
-
-          <button id="connectBtn" class="cyber-btn primary full-width">INITIALIZE CONNECTION</button>
-
-          <div class="divider"><span>OR</span></div>
 
           <div class="input-group">
             <label>ACCESS CODE</label>
